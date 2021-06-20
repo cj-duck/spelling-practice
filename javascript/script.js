@@ -1,47 +1,63 @@
 // Variables:
-words = new Array("accommodate", "alcohol", "believe", "calendar", "category", "changeable", "conscious", "definitely", "disappear", "disappoint", "existence", "experience", "equipment", "february", "foreign", "generally", "guarantee", "immediate", "immediately", "independent", "intelligence", "judgement", "knowledge", "library", "mischievous", "noticeable", "occasion", "occasionally", "occur", "official", "preferable", "receive", "recommend", "referred", "reference", "relevant", "ridiculous", "rhythm", "scissors", "sensible", "separate", "special", "success", "tomorrow", "weather", "vicious", "gauge", "convenient", "opportunity", "neighbour", "argument", "embarrass", "necessary", "business", "commitment", "government", "successfully", "psychology", "happiness", "difference", "unnecessary", "antidisestablishmentarianism", "absence", "accidentally", "emergency", "accessible", "misspelled", "because", "basically", "sincerely", "language", "succeeded", "fulfil", "magnificent", "apparently", "curious", "curiosity", "committed", "possession", "colleague", "committee");
+words = new Array("absence", "accessible", "accidentally", "accommodate", "acquaintance", "acquire", "across", "advisable", "alcohol", "almost", "altogether", "amateur", "annual", "antidisestablishmentarianism", "apparent", "apparently", "argument", "awesome", "awful", "basically", "beautiful", "because", "becoming", "believe", "business", "calendar", "camouflaged", "can't", "category", "cemetery", "changeable", "chief", "collaborate", "colleague", "commitment", "committed", "committee", "congratulate", "conscious", "convenient", "couldn't", "curiosity", "curious", "definite", "definitely", "developed", "didn't", "difference", "dilemma", "disappear", "disappoint", "don't", "dying", "embarrass", "emergency", "equipment", "especially", "exaggerate", "exercise", "existence", "experience", "explanation", "february", "foreign", "friend", "fulfil", "gauge", "generally", "government", "grammar", "grateful", "guarantee", "happiness", "height", "heroes", "humorous", "hygiene", "immediate", "immediately", "independent", "intelligence", "interrupt", "isn't", "jewellery", "judgement", "knowledge", "language", "library", "license", "lightning", "lose", "magnificent", "marriage", "mischievous", "misspelled", "necessary", "neighbour", "noticeable", "occasion", "occasionally", "occur", "official", "opportunity", "parallel", "parliament", "perceive", "performance", "possession", "preferable", "presence", "probably", "professor", "pronunciation", "protester", "psychology", "publicly", "questionable", "readable", "really", "receipt", "receive", "reception", "receptionist", "recommend", "reference", "referred", "relevant", "religious", "rhyme", "rhythm", "ridiculous", "scissors", "secretary", "sensible", "separate", "shouldn't", "similar", "sincerely", "skilful", "special", "succeeded", "success", "successfully", "symmetry", "tomorrow", "unnecessary", "vaccination", "vacuum", "vicious", "weather", "won't", "wouldn't", "writing",);
 correct = new Audio("audio/correct.mp3");
 incorrect = new Audio("audio/incorrect.mp3");
 var currentWord;
 var sound;
 var attempt;
 var dictionaryLink;
+var streak = 0;
+var randomNum;
+var keyPress;
 
 window.onload = chooseAudio;
 
+// Log class for storing attempts:
+/*class Log {
+    constructor(word, attempt, streak) {
+        this.word = word;
+        this.attempt = attempt;
+        this.streak = streak;
+    }
+}*/
+
 // Choose a random word on load:
 function chooseAudio() {
-    document.getElementById('attemptText').value = "";
-    var randomNum = Math.floor(Math.random() * words.length);
+    document.getElementById('attempt-text').value = "";
+    randomNum = Math.floor(Math.random() * words.length);
     currentWord = words[randomNum];
     sound = new Audio("audio/" + currentWord + ".ogg");
     dictionaryLink = "https://www.dictionary.com/browse/" + currentWord;
-    document.dictionary1.action = dictionaryLink;
     document.dictionary.action = dictionaryLink;
 }
 
 // Play sound when button is pressed:
 function playSound() {
     sound.play();
+    document.getElementById("attempt-text").focus();
 }
 
 // Check attempt on enter:
 function checkAttempt() {
-    var key = window.event.keyCode;
+    keyPress = window.event.keyCode;
 
-    if (key === 13) {
-        attempt = document.getElementById('attemptText').value.toLowerCase();
+    if (keyPress === 13) {
+        attempt = document.getElementById('attempt-text').value.toLowerCase();
+        document.getElementById('attempt-text').disabled = true;
         if (currentWord == attempt) {
             correct.play();
-            console.log("Correct!");
             document.getElementById("correct").style.display = "block";
-            document.getElementById("gameWindow").style.paddingBottom = "20px";
+            document.getElementById("buttons").style.display = "block";
+            document.getElementById("game-window").style.paddingBottom = "20px";
+            streak += 1;
         } else {
             incorrect.play();
             document.getElementById("incorrect").style.display = "block";
-            document.getElementById("gameWindow").style.paddingBottom = "20px";
-            document.getElementById("yourSpelling").innerHTML = document.getElementById("attemptText").value;
-            document.getElementById("correctSpelling").innerHTML = currentWord;
+            document.getElementById("buttons").style.display = "block";
+            document.getElementById("game-window").style.paddingBottom = "20px";
+            document.getElementById("your-spelling").innerHTML = document.getElementById("attempt-text").value;
+            document.getElementById("correct-spelling").innerHTML = currentWord;
+            streak = 0;
         }
     }
 }
@@ -51,5 +67,7 @@ function nextWord() {
     chooseAudio();
     document.getElementById("incorrect").style.display = "none";
     document.getElementById("correct").style.display = "none";
-    document.getElementById("gameWindow").style.paddingBottom = "50px";
+    document.getElementById("buttons").style.display = "none";
+    document.getElementById("game-window").style.paddingBottom = "50px";
+    document.getElementById('attempt-text').disabled = false;
 }

@@ -6,66 +6,57 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="images/favicon.png"/>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <link rel="icon" type="image/png" href="images/favicon.png" />
     <title>Practice Spelling</title>
 </head>
 
+<body>
 
-
-<body style="background-color: #66bed9">
-
-    <div id="gameWindow" class="center">
+    <div id="game-window" class="center">
 
         <h3>Listen to the word and type it below:</h3><br>
 
-        <button type="button" class="btn" id="speakerButton" onclick="playSound()"><svg
+        <button type="button" class="btn" id="speaker-button" onclick="playSound()"><svg
                 xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
                 <path
                     d="M5 17h-5v-10h5v10zm2-10v10l9 5v-20l-9 5zm17 4h-5v2h5v-2zm-1.584-6.232l-4.332 2.5 1 1.732 4.332-2.5-1-1.732zm1 12.732l-4.332-2.5-1 1.732 4.332 2.5 1-1.732z" />
             </svg>
         </button><br>
 
-        <div class="md-form" id="attemptDiv">
-            <input type="text" id="attemptText" onkeypress="checkAttempt()"/>
+        <div class="md-form" id="attempt-div">
+            <input type="text" id="attempt-text" onkeypress="checkAttempt()" />
         </div>
 
-        <div id="correct">
+        <div id="correct" style="padding-top: 5px">
             Correct!<br>
-            <form target="_blank" name="dictionary1" action="" style="display: inline;"><button id="blankButton">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M5.495 2h16.505v-2h-17c-1.656 0-3 1.343-3 3v18c0 1.657 1.344 3 3 3h17v-20h-16.505c-1.376 0-1.376-2 0-2zm.505 4h14v16h-14v-16zm8.084 11.958c0 .575-.466 1.042-1.042 1.042-.573 0-1.04-.467-1.04-1.042 0-.576.467-1.042 1.04-1.042.576.001 1.042.467 1.042 1.042zm-1.008-8.958c-1.68 0-2.942 1.122-2.942 3.333h1.648c0-.96.377-1.746 1.26-1.746.52 0 1.07.345 1.118 1.004.051.694-.319 1.046-.788 1.493-1.219 1.158-1.174 1.688-1.174 2.999h1.644c0-.605-.066-1.045.766-1.941.554-.598 1.244-1.342 1.259-2.477.019-1.65-1.147-2.665-2.791-2.665z" />
-                    </svg>
-                </button>
-            </form>
-            <button id="blankButton">
-                <svg id="next" onclick="nextWord()" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24">
-                    <path
-                        d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
-                </svg></button>
         </div>
 
-        <div id="incorrect">
-            Your spelling: <span id="yourSpelling"></span><br>
-            Correct spelling: <span id="correctSpelling"></span><br>
-            <form target="_blank" name="dictionary" action="" style="display: inline;"><button id="blankButton">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <div id="incorrect" style="padding-top: 5px">
+            Your spelling: <span id="your-spelling"></span><br>
+            Correct spelling: <span id="correct-spelling"></span><br>
+        </div>
+
+        <div id="buttons">
+            <form target="_blank" name="dictionary" action="" style="display: inline;">
+                <button id="blank-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24">
                         <path
                             d="M5.495 2h16.505v-2h-17c-1.656 0-3 1.343-3 3v18c0 1.657 1.344 3 3 3h17v-20h-16.505c-1.376 0-1.376-2 0-2zm.505 4h14v16h-14v-16zm8.084 11.958c0 .575-.466 1.042-1.042 1.042-.573 0-1.04-.467-1.04-1.042 0-.576.467-1.042 1.04-1.042.576.001 1.042.467 1.042 1.042zm-1.008-8.958c-1.68 0-2.942 1.122-2.942 3.333h1.648c0-.96.377-1.746 1.26-1.746.52 0 1.07.345 1.118 1.004.051.694-.319 1.046-.788 1.493-1.219 1.158-1.174 1.688-1.174 2.999h1.644c0-.605-.066-1.045.766-1.941.554-.598 1.244-1.342 1.259-2.477.019-1.65-1.147-2.665-2.791-2.665z" />
                     </svg>
                 </button>
             </form>
-            <button id="blankButton">
-                <svg id="next" onclick="nextWord()" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            <button id="blank-button" style="padding-top: 19px">
+                <svg id="next" onclick="nextWord()" xmlns="http://www.w3.org/2000/svg" width="27" height="27"
                     viewBox="0 0 24 24">
                     <path
                         d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
 
     </div>
-
 </body>
 
 </html>
